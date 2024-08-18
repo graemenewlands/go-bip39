@@ -1,5 +1,9 @@
 # go-bip39
 
+## Tools for working with EC25519 Keys
+
+**USE AT OWN PERIL - UNDERSTAND THE RISKS**
+
 A golang implementation of the BIP0039 spec for mnemonic seeds
 
 ## Fork
@@ -16,31 +20,52 @@ not want (eg. some vars becoming private).
 English wordlist and test vectors are from the standard Python BIP0039 implementation
 from the Trezor guys: [https://github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic)
 
-## Example
+## Build
 
-```go
-package main
+clone the repository, install golang 1.22 and build:
 
-import (
-  "github.com/tyler-smith/go-bip39"
-  "github.com/tyler-smith/go-bip32"
-  "fmt"
-)
+  `> make build`
 
-func main(){
-  // Generate a mnemonic for memorization or user-friendly seeds
-  entropy, _ := bip39.NewEntropy(256)
-  mnemonic, _ := bip39.NewMnemonic(entropy)
+this will produce a `bin` directory with two commands in it, `mnemonic` and `ed209`.
 
-  // Generate a Bip32 HD wallet for the mnemonic and a user supplied password
-  seed := bip39.NewSeed(mnemonic, "Secret Passphrase")
+## Examples
 
-  masterKey, _ := bip32.NewMasterKey(seed)
-  publicKey := masterKey.PublicKey()
+### Produce a mnemonic
 
-  // Display mnemonic and keys
-  fmt.Println("Mnemonic: ", mnemonic)
-  fmt.Println("Master private key: ", masterKey)
-  fmt.Println("Master public key: ", publicKey)
-}
+```
+> /bin/mnemonic 
+scorpion swift flag wood profit aspect bacon fringe sell future tape stuff shop expire visual analyst jump robust scrub virtual awkward nature skull garage
+
+> /bin/mnemonic > words.txt
+
+> cat words.txt 
+absorb pioneer delay ski position behind orphan crack off blush behave solve glide gym intact critic wash birth sheriff explain person junior drink fetch
+
+```
+
+### Produce a Private Key
+
+```
+> cat words.txt | ./bin/ed209 
+-----BEGIN EC PRIVATE KEY-----
+MC4CAQAwBQYDK2VwBCIEIADUpOflKoYpJzGOmUMQUed2MNAdYZ73YtcWKEo08lDC
+-----END EC PRIVATE KEY-----
+
+> cat words.txt | ./bin/ed209 > words.pem
+> openssl pkey -in words.pem  -text -noout
+ED25519 Private-Key:
+priv:
+    00:d4:a4:e7:e5:2a:86:29:27:31:8e:99:43:10:51:
+    e7:76:30:d0:1d:61:9e:f7:62:d7:16:28:4a:34:f2:
+    50:c2
+pub:
+    e0:bb:b8:dc:09:03:33:e4:64:7c:67:e2:15:c7:e4:
+    0e:0f:e4:bb:a7:b6:b4:ed:c0:48:f1:dc:ac:41:45:
+    a2:7f
+
+```
+
+### Get the Public Key
+```
+openssl pkey -in words.pem  -pubout
 ```
