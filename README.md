@@ -48,7 +48,7 @@ absorb pioneer delay ski position behind orphan crack off blush behave solve gli
 ```
 > cat words.txt | ./bin/ed209 
 -----BEGIN EC PRIVATE KEY-----
-MC4CAQAwBQYDK2VwBCIEIADUpOflKoYpJzGOmUMQUed2MNAdYZ73YtcWKEo08lDC
+MC4C-----------------------REDACTED FOR GITHUB-----------------
 -----END EC PRIVATE KEY-----
 
 > cat words.txt | ./bin/ed209 > words.pem
@@ -56,7 +56,7 @@ MC4CAQAwBQYDK2VwBCIEIADUpOflKoYpJzGOmUMQUed2MNAdYZ73YtcWKEo08lDC
 ED25519 Private-Key:
 priv:
     00:d4:a4:e7:e5:2a:86:29:27:31:8e:99:43:10:51:
-    e7:76:30:d0:1d:61:9e:f7:62:d7:16:28:4a:34:f2:
+    ----------------REDACTED FOR GITHUB----------
     50:c2
 pub:
     e0:bb:b8:dc:09:03:33:e4:64:7c:67:e2:15:c7:e4:
