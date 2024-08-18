@@ -19,6 +19,9 @@ func process(line string) {
 		log.Fatalf("error converting mnemonic %s to byte array: %s", line, err)
 	}
 
+	// the seed actually contains an extra array element (checksum), that needs to
+	// be removed.
+	// the consts declared in the ed25519 package describe the valid seed size settings
 	privkey := ed25519.NewKeyFromSeed(seed[:len(seed)-1])
 
 	privkeyBytes, err := x509.MarshalPKCS8PrivateKey(privkey)
