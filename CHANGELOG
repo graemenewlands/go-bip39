@@ -1,0 +1,5 @@
+2025-08-26:
+    i.  added p256 for compatibility with 2yr old 
+        yubikeys
+    ii. moved the PEM header to a slightly more 
+        modern version for private keys.

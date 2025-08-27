@@ -16,8 +16,14 @@ build-ed209:
 	@mkdir -p $(BIN_DIR)
 	go build $(BUILD_FLAGS) -o $(BIN_DIR)/ed209 cmd/ed25519/main.go
 
+# Build the second Go program
+build-p256:
+	@echo "Building p256..."
+	@mkdir -p $(BIN_DIR)
+	go build $(BUILD_FLAGS) -o $(BIN_DIR)/p256 cmd/p256/main.go
+
 # Build both programs
-build: build-mnemonic build-ed209
+build: build-mnemonic build-ed209 build-p256
 
 # Clean up binaries
 clean:

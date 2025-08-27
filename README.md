@@ -1,6 +1,6 @@
 # go-bip39
 
-## Tools for working with EC25519 Keys
+## Tools for working with ec25519 Keys
 
 **USE AT OWN PERIL - UNDERSTAND THE RISKS**
 
@@ -32,40 +32,48 @@ this will produce a `bin` directory with two commands in it, `mnemonic` and `ed2
 
 ### Produce a mnemonic
 
-```
-> /bin/mnemonic 
-scorpion swift flag wood profit aspect bacon fringe sell future tape stuff shop expire visual analyst jump robust scrub virtual awkward nature skull garage
+    > /bin/mnemonic 
+    scorpion swift flag wood profit aspect bacon fringe sell future tape stuff shop expire visual analyst jump robust scrub virtual awkward nature skull garage
 
-> /bin/mnemonic > words.txt
+    > /bin/mnemonic > words.txt
 
-> cat words.txt 
-absorb pioneer delay ski position behind orphan crack off blush behave solve glide gym intact critic wash birth sheriff explain person junior drink fetch
+    > cat words.txt 
+    absorb pioneer delay ski position behind orphan crack off blush behave solve glide gym intact critic wash birth sheriff explain person junior drink fetch
 
-```
 
 ### Produce a Private Key
 
-```
-> cat words.txt | ./bin/ed209 
------BEGIN EC PRIVATE KEY-----
-MC4C-----------------------REDACTED FOR GITHUB-----------------
------END EC PRIVATE KEY-----
+    > cat words.txt | ./bin/ed209 
+    -----BEGIN PRIVATE KEY-----
+    MC4C-----------------------REDACTED FOR GITHUB-----------------
+    -----END PRIVATE KEY-----
 
-> cat words.txt | ./bin/ed209 > words.pem
-> openssl pkey -in words.pem  -text -noout
-ED25519 Private-Key:
-priv:
-    00:d4:a4:e7:e5:2a:86:29:27:31:8e:99:43:10:51:
-    ----------------REDACTED FOR GITHUB----------
-    50:c2
-pub:
-    e0:bb:b8:dc:09:03:33:e4:64:7c:67:e2:15:c7:e4:
-    0e:0f:e4:bb:a7:b6:b4:ed:c0:48:f1:dc:ac:41:45:
-    a2:7f
+    > cat words.txt | ./bin/ed209 > words.pem
+    > openssl pkey -in words.pem  -text -noout
+    ED25519 Private-Key:
+    priv:
+        00:d4:a4:e7:e5:2a:86:29:27:31:8e:99:43:10:51:
+        ----------------REDACTED FOR GITHUB----------
+        50:c2
+    pub:
+        e0:bb:b8:dc:09:03:33:e4:64:7c:67:e2:15:c7:e4:
+        0e:0f:e4:bb:a7:b6:b4:ed:c0:48:f1:dc:ac:41:45:
+        a2:7f
 
-```
+### Inspect a Private Key
+
+    > cat words.txt | ./bin/p256 > key.pem
+    openssl pkey -in key.pem -text
+
+### Encrypt a Private Key
+
+*note: this will prompt for passphrase*
+
+    openssl pkcs8 -topk8 -in key.pem \
+      -out key-encrypted.pem -v2 aes-256-cbc \
+      -v2prf hmacWithSHA256 -iter 600000
 
 ### Get the Public Key
-```
-openssl pkey -in words.pem  -pubout
-```
+    
+    openssl pkey -in words.pem  -pubout
+
