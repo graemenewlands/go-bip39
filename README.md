@@ -8,12 +8,9 @@ A golang implementation of the BIP0039 spec for mnemonic seeds
 
 ## Fork
 
-This is a fork of github.com/tyler-smith/go-bip39 from right after the fixes
-from bartekn for `MnemonicToByteArray` were merged
-(commit hash: 52158e4697b87de16ed390e1bdaf813e581008fa).
+This originates as a fork of [tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39) from right after the fixes from bartekn for `MnemonicToByteArray` were merged (commit hash: 52158e4697b87de16ed390e1bdaf813e581008fa).
 
-The `tyler-smith` repo is undergoing significant refactoring at present that we may
-not want (eg. some vars becoming private).
+The decision was made to detach the fork based on the evolution to general purpose tool.
 
 ## Credits
 
